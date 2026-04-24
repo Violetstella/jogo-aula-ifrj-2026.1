@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LixoSpawnerControllera : MonoBehaviour
 {
@@ -11,9 +12,13 @@ public class LixoSpawnerControllera : MonoBehaviour
     public GameObject Lixo;
     public int MaxPoints;
     public int points= 0; 
+    public TMP_Text pointsText;
+    public TMP_Text victoryText;
     void Start()
     {
         StartCoroutine(SpawnRoutine());
+        pointsText.text = "Points: "+points.ToString();
+        victoryText.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -32,5 +37,10 @@ public class LixoSpawnerControllera : MonoBehaviour
                 fixedZ),Quaternion.identity);
                 yield return new WaitForSeconds(timer);
             }
+            victoryText.gameObject.SetActive(true);
         }
-}
+    public void AddToPoints(int value){
+        points += value;
+        pointsText.text = "Points: "+points.ToString();
+    }
+    }
